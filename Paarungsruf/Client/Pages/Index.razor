@@ -1,0 +1,46 @@
+﻿@page "/"
+@using Paarungsruf.Shared
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?"/>
+
+<table>
+    @foreach (var rows in _matrix.Matches)
+    {
+        <tr>
+            @foreach (var matchValue in rows.Opponents)
+            {
+                if (matchValue.Value == 10)
+                {
+                    <td class="bg-info">@matchValue.Value</td>
+                }
+                else if (matchValue.Value < 10)
+                {
+                    <td class="bg-danger">@matchValue.Value</td>
+                }
+                else
+                {
+                    <td class="bg-success">@matchValue.Value</td>
+                }
+            }
+        </tr>
+    }
+</table>
+
+@code
+{
+    Matrix _matrix = new(
+        new List<Faction> { Faction.BeastHeards, Faction.DaemonLegions, Faction.HighbornElves },
+        new List<Faction> { Faction.SaurianAncients, Faction.VerminSwarm, Faction.KingdomOfEquitaine });
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+
+}
