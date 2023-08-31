@@ -1,8 +1,10 @@
 using System.Text.Json.Serialization;
+using MongoDB.Bson;
+using Paarungsruf.Shared.Contracts;
 
 namespace Paarungsruf.Shared;
 
-public class Matrix
+public class Matrix : IIdentifiable, IVersionable
 {
     [JsonConstructor]
     public Matrix()
@@ -55,4 +57,6 @@ public class Matrix
     public List<Pairing> Pairings { get; set; } = new();
 
     public int ExpectedPoints => Pairings.Sum(p => p.Value) - Pairings.Count * 10;
+    public ObjectId Id { get; set; }
+    public int Version { get; set; }
 }
