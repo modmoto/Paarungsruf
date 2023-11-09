@@ -1,4 +1,3 @@
-using System.Text.Json.Serialization;
 using Paarungsruf.Shared;
 
 namespace Domain.UnitTests;
