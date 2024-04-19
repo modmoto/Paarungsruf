@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <RootNamespace>Paarungsruf.Shared</RootNamespace>
@@ -12,6 +12,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="MongoDB.Bson" Version="2.21.0" />
+      <PackageReference Include="MongoDB.Bson" Version="2.25.0" />
     </ItemGroup>
 </Project>
