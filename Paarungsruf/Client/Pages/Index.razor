@@ -1,5 +1,9 @@
 ﻿@page "/"
 @using Paarungsruf.Shared
+@using Paarungsruf.Shared.Pairings
+@using Paarungsruf.Shared.Tournaments
+@inject HttpClient Client
+@inject NavigationManager NavigationManager
 
 <PageTitle>Index</PageTitle>
 
@@ -28,11 +32,22 @@
     }
 </table>
 
+<ul>
+    @foreach (var tournament in _tournaments)
+    {
+        <li>
+            @tournament.Name <button class="btn btn-primary" @onclick="() => GoToCreateMatrix(tournament.Id)">Create Matrix</button>
+        </li>
+    }
+</ul>
+
 @code
 {
     Matrix _matrix = new(
         new List<Faction> { Faction.BeastHeards, Faction.DaemonLegions, Faction.HighbornElves },
         new List<Faction> { Faction.SaurianAncients, Faction.VerminSwarm, Faction.KingdomOfEquitaine });
+
+    private List<Tournament> _tournaments = new();
 
     protected override void OnInitialized()
     {
@@ -48,4 +63,21 @@
         _matrix.SetRating(Faction.HighbornElves, Faction.KingdomOfEquitaine, 5);
     }
 
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        _tournaments = await Client.GetFromJsonAsync<List<Tournament>>("Tournament");   
+    }
+
+    private async Task GoToCreateMatrix(string tournamentId)
+    {
+        var result = await Client.PostAsJsonAsync("Matrix", new { tournamentId });
+        var matrix = await result.Content.ReadFromJsonAsync<CreateMatrixDto>();
+        NavigationManager.NavigateTo($"Matrix/{matrix.TournamentId}");
+    }
+    
+    public class CreateMatrixDto
+    {
+        public string TournamentId { get; set; }
+    }
 }

@@ -1,4 +1,4 @@
-namespace Paarungsruf.Shared;
+namespace Paarungsruf.Shared.Pairings;
 
 public class Opponent
 {

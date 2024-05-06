@@ -1,4 +1,6 @@
 using MongoDB.Driver;
+using Paarungsruf.Server.Matrixes;
+using Paarungsruf.Server.NewRecruit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddTransient<MatrixRepository>();
+builder.Services.AddHttpClient<TournamentRepository>(c => c.BaseAddress = new Uri("https://www.newrecruit.eu/"));
 
 builder.Services.AddSingleton(_ =>
 {

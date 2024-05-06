@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace Paarungsruf.Shared;
+namespace Paarungsruf.Shared.Pairings;
 
 public class Mutator
 {

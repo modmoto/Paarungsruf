@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 using MongoDB.Bson;
 using Paarungsruf.Shared.Contracts;
 
-namespace Paarungsruf.Shared;
+namespace Paarungsruf.Shared.Pairings;
 
 public class Matrix : IIdentifiable, IVersionable
 {
