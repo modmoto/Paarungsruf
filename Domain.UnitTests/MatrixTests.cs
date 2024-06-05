@@ -1,4 +1,3 @@
-using Paarungsruf.Shared;
 using Paarungsruf.Shared.Pairings;
 
 namespace Domain.UnitTests;

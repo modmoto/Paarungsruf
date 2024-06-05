@@ -1,7 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using Paarungsruf.Server.Repositories;
-using Paarungsruf.Shared;
 using Paarungsruf.Shared.Pairings;
 
 namespace Paarungsruf.Server.Matrixes;

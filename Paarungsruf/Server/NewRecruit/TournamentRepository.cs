@@ -1,7 +1,4 @@
-﻿using MongoDB.Driver;
-using Paarungsruf.Server.Repositories;
-
-namespace Paarungsruf.Server.NewRecruit;
+﻿namespace Paarungsruf.Server.NewRecruit;
 
 public class TournamentRepository
 {
