@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
+using Paarungsruf.Dtos;
 using Paarungsruf.Shared.Pairings;
 
 namespace Paarungsruf.Server.Matrixes;
 
 [ApiController]
-[Route("[controller]")]
+[Route("Matrixes")]
 public class MatrixController : ControllerBase
 {
     private readonly MatrixRepository _matrixRepository;
@@ -15,8 +16,15 @@ public class MatrixController : ControllerBase
         _matrixRepository = matrixRepository;
     }
 
+    [HttpGet]
+    public async Task<ActionResult<List<Matrix>>> GetMatrixes()
+    {
+        var matrices = await _matrixRepository.Load();
+        return Ok(matrices);
+    }
+    
     [HttpGet("id")]
-    public async Task<ActionResult<List<Matrix>>> GetMatrixes([FromRoute] string id)
+    public async Task<ActionResult<List<Matrix>>> GetMatrix([FromRoute] string id)
     {
         return Ok(await _matrixRepository.Load(new ObjectId(id)));
     }
@@ -31,24 +39,10 @@ public class MatrixController : ControllerBase
     }
     
     [HttpPost]
-    public async Task<ActionResult<Matrix>> UpdateMatrix([FromBody] CreateMatrixDto createMatrixDto)
+    public async Task<ActionResult<Matrix>> CreateMatrix([FromBody] CreateMatrixDto createMatrixDto)
     {
-        var matrix1 = new Matrix(new List<Faction>(), new List<Faction>());
-        var matrix2 = new Matrix(new List<Faction>(), new List<Faction>());
-        await _matrixRepository.Insert(matrix1);
-        await _matrixRepository.Insert(matrix2);
-        return Ok(new CreateMatrixDto { TournamentId = Guid.NewGuid().ToString() });
+        var matrix = new Matrix(createMatrixDto.OwnTeam, createMatrixDto.Opponents);
+        await _matrixRepository.Insert(matrix);
+        return Ok(matrix);
     }
-}
-
-public class CreateMatrixDto
-{
-    public string TournamentId { get; set; }
-}
-
-public class UpdateMatrixDto
-{
-    public int ExpectedValue { get; set; }
-    public Faction Opponent { get; set; }
-    public Faction Player { get; set; }
 }

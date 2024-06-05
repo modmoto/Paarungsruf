@@ -12,6 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\Paarungsruf.Dtos\Paarungsruf.Dtos.csproj" />
         <ProjectReference Include="..\Shared\Paarungsruf.Domain.csproj" />
     </ItemGroup>
 

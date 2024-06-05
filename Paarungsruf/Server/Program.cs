@@ -13,7 +13,8 @@ builder.Services.AddHttpClient<TournamentRepository>(c => c.BaseAddress = new Ur
 
 builder.Services.AddSingleton(_ =>
 {
-    var mongoConnectionString = "mongodb://admin:JzZxkHsmL2f62PEX@65.21.139.246:1001";
+    var mongoConnectionString = "mongodb://localhost:27017";
+    // var mongoConnectionString = "mongodb://admin:JzZxkHsmL2f62PEX@65.21.139.246:1001";
     return new MongoClient(mongoConnectionString);
 });
 

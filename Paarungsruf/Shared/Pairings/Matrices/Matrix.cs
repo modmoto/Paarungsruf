@@ -57,6 +57,8 @@ public class Matrix : IIdentifiable, IVersionable
     public List<Pairing> Pairings { get; set; } = new();
 
     public int ExpectedPoints => Pairings.Sum(p => p.Value) - Pairings.Count * 10;
+    [JsonIgnore]
     public ObjectId Id { get; set; }
+    public string IdRaw { get; set; }
     public int Version { get; set; }
 }

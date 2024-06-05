@@ -1,0 +1,43 @@
+﻿@page "/Matrix/{id}"
+@using Paarungsruf.Shared.Pairings
+@inject HttpClient Client
+
+<PageTitle>Matrix</PageTitle>
+
+@if (_matrix != null)
+{
+    
+    <table>
+        @foreach (var rows in _matrix.Matches)
+        {
+            <tr>
+                @foreach (var matchValue in rows.Opponents)
+                {
+                    if (matchValue.Value == 10)
+                    {
+                        <td class="bg-info">@matchValue.Value</td>
+                    }
+                    else if (matchValue.Value < 10)
+                    {
+                        <td class="bg-danger">@matchValue.Value</td>
+                    }
+                    else
+                    {
+                        <td class="bg-success">@matchValue.Value</td>
+                    }
+                }
+            </tr>
+        }
+    </table>
+}
+
+@code
+{
+    Matrix? _matrix;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        _matrix = await Client.GetFromJsonAsync<Matrix>("Matrix/id");   
+    }
+}
